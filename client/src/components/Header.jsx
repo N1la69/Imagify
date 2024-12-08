@@ -17,7 +17,7 @@ const Header = () => {
         in seconds - just type, and watch the magic happen.
       </p>
 
-      <button className="sm:text-lg text-white bg-black w-auto mt-8 px-12 py-2.5 flex items-center gap-2 rounded-full">
+      <button className="sm:text-lg text-white bg-black w-auto mt-8 px-12 py-2.5 flex items-center gap-2 rounded-full hover:scale-105 transition-all duration-300">
         Generate Images
         <img src={assets.star_group} alt="generate" className="h-6" />
       </button>
