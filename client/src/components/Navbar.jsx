@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 
 const Navbar = () => {
-  const { user } = useContext(AppContext);
+  const { user, setShowLogin } = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -47,7 +47,10 @@ const Navbar = () => {
             <p className="cursor-pointer" onClick={() => navigate("/buy")}>
               Pricing
             </p>
-            <button className="bg-zinc-800 text-white py-2 px-7 sm:px-10 text-sm rounded-full">
+            <button
+              className="bg-zinc-800 text-white py-2 px-7 sm:px-10 text-sm rounded-full"
+              onClick={() => setShowLogin(true)}
+            >
               Login
             </button>
           </div>

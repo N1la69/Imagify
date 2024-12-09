@@ -7,6 +7,8 @@ import star_icon from "./star_icon.svg";
 import rating_star from "./rating_star.svg";
 import sample_img_1 from "./sample_img_1.png";
 import sample_img_2 from "./sample_img_2.png";
+import profile_img_1 from "./profile_img_1.png";
+import profile_img_2 from "./profile_img_2.png";
 import step_icon_1 from "./step_icon_1.svg";
 import step_icon_2 from "./step_icon_2.svg";
 import step_icon_3 from "./step_icon_3.svg";
@@ -33,6 +35,8 @@ export const assets = {
   star_group,
   credit_star,
   profile_icon,
+  profile_img_1,
+  profile_img_2,
 };
 
 export const stepsData = [
