@@ -1,9 +1,29 @@
+import { useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
+import { motion } from "motion/react";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
 const Description = () => {
+  const { user, setShowLogin } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  const onClickHandler = () => {
+    if (user) {
+      navigate("/result");
+    } else {
+      setShowLogin(true);
+    }
+  };
   return (
     <>
-      <div className="flex flex-col items-center justify-center my-24 p-6 md:px-28">
+      <motion.div
+        className="flex flex-col items-center justify-center my-24 p-6 md:px-28"
+        initial={{ opacity: 0, y: 100 }}
+        transition={{ duration: 1 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+      >
         <h1 className="text-3xl sm:text-4xl font-semibold mb-2">
           Create AI Images
         </h1>
@@ -35,17 +55,26 @@ const Description = () => {
             </p>
           </div>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="pb-16 text-center flex flex-col items-center justify-center">
+      <motion.div
+        className="pb-16 text-center flex flex-col items-center justify-center"
+        initial={{ opacity: 0, y: 100 }}
+        transition={{ duration: 1 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+      >
         <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold mt-4 text-neutral-800 py-6 md:py-10">
           See the Magic. Try Now.
         </h1>
-        <button className="sm:text-lg text-white bg-black w-auto mt-2 px-12 py-2.5 flex items-center gap-2 rounded-full hover:scale-105 transition-all duration-300">
+        <button
+          onClick={onClickHandler}
+          className="sm:text-lg text-white bg-black w-auto mt-2 px-12 py-2.5 flex items-center gap-2 rounded-full hover:scale-105 transition-all duration-300"
+        >
           Generate Images
           <img src={assets.star_group} alt="generate" className="h-6" />
         </button>
-      </div>
+      </motion.div>
     </>
   );
 };
