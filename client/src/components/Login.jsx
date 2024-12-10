@@ -2,11 +2,55 @@ import { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
 import { motion } from "motion/react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Login = () => {
-  const { setShowLogin } = useContext(AppContext);
+  const { setShowLogin, backendUrl, setToken, setUser } =
+    useContext(AppContext);
 
   const [state, setState] = useState("Login");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (state === "Login") {
+        const { data } = await axios.post(backendUrl + "/api/user/login", {
+          email,
+          password,
+        });
+        if (data.success) {
+          setToken(data.token);
+          setUser(data.user);
+          localStorage.getItem("token", data.token);
+          setShowLogin(false);
+        } else {
+          toast.error(data.message);
+        }
+      } else {
+        const { data } = await axios.post(backendUrl + "/api/user/register", {
+          name,
+          email,
+          password,
+        });
+        if (data.success) {
+          setToken(data.token);
+          setUser(data.user);
+          localStorage.getItem("token", data.token);
+          setShowLogin(false);
+        } else {
+          toast.error(data.message);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  };
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -24,6 +68,7 @@ const Login = () => {
         transition={{ duration: 0.3 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
+        onSubmit={onSubmitHandler}
       >
         <h1 className="text-center text-2xl text-neutral-700 font-medium">
           {state}
@@ -42,6 +87,8 @@ const Login = () => {
               placeholder="Full Name"
               required
               className="outline-none text-sm"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
             />
           </div>
         )}
@@ -53,6 +100,8 @@ const Login = () => {
             placeholder="Email"
             required
             className="outline-none text-sm"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
           />
         </div>
 
@@ -63,6 +112,8 @@ const Login = () => {
             placeholder="Password"
             required
             className="outline-none text-sm"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
         </div>
 
